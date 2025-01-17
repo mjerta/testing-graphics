@@ -7,6 +7,7 @@ public class App {
     int w = 640;
     int h = 480;
     JFrame f = new JFrame();
+    f.add(new DrawningCanvas(w, h));
     f.setSize(w, h);
     f.setTitle("Drawning in Java");
     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
