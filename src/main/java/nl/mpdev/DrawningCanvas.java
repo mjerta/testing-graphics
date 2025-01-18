@@ -11,7 +11,7 @@ public class DrawningCanvas extends JComponent {
   public DrawningCanvas(int width, int height) {
     this.width = width;
     this.height = height;
-    c1 = new Cloud();
+    c1 = new Cloud(200,75,100,Color.BLUE);
   }
 
   protected void paintComponent(Graphics g) {
