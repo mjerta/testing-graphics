@@ -2,6 +2,7 @@ package nl.mpdev;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 
@@ -35,6 +36,8 @@ public class DrawningCanvas extends JComponent {
     Rectangle2D.Double r2 = new Rectangle2D.Double(100,150,100,100);
     Rectangle2D.Double r3 = new Rectangle2D.Double(50, 50, 100, 100);
 
+    AffineTransform reset = g2d.getTransform();
+
     g2d.setColor(Color.BLUE);
 
     g2d.translate(150,100);
@@ -44,8 +47,12 @@ public class DrawningCanvas extends JComponent {
     g2d.translate(300,200);
     g2d.fill(r3);
 
-    g2d.translate(-450,-300);
+
+    g2d.setTransform(reset);
     g2d.fill(r1);
+
+
+
 
 //    Path2D.Double p = new   Path2D.Double();
 //    p.moveTo(100, 300);
