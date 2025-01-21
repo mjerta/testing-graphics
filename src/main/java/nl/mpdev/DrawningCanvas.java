@@ -32,24 +32,40 @@ public class DrawningCanvas extends JComponent {
     );
     g2d.setRenderingHints(rh);
 
-    Rectangle2D.Double r1 = new Rectangle2D.Double(0,0,100,100);
-    Rectangle2D.Double r2 = new Rectangle2D.Double(100,150,100,100);
-    Rectangle2D.Double r3 = new Rectangle2D.Double(50, 50, 100, 100);
-
     AffineTransform reset = g2d.getTransform();
 
-    g2d.setColor(Color.BLUE);
+    Rectangle2D.Double r = new Rectangle2D.Double(150,200,100,100);
 
-    g2d.translate(150,100);
-    g2d.fill(r1);
-    g2d.fill(r2);
-
-    g2d.translate(300,200);
-    g2d.fill(r3);
-
+    g2d.setColor(Color.GREEN);
+    g2d.rotate(Math.toRadians(15),150,200);
+    g2d.fill(r);
 
     g2d.setTransform(reset);
-    g2d.fill(r1);
+
+    g2d.setColor(Color.BLUE);
+    g2d.rotate(Math.toRadians(20),150,200);
+    g2d.fill(r);
+
+
+//    Rectangle2D.Double r1 = new Rectangle2D.Double(0,0,100,100);
+//    Rectangle2D.Double r2 = new Rectangle2D.Double(100,150,100,100);
+//    Rectangle2D.Double r3 = new Rectangle2D.Double(50, 50, 100, 100);
+//
+//    AffineTransform reset = g2d.getTransform();
+//
+//    g2d.setColor(Color.BLUE);
+//
+//    g2d.translate(150,100);
+//    g2d.fill(r1);
+//    g2d.fill(r2);
+//
+//    g2d.translate(300,200);
+//    g2d.fill(r3);
+//
+//    g2d.setTransform(reset);
+//    g2d.fill(r1);
+//
+
 
 
 
