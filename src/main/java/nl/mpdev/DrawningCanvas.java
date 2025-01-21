@@ -9,13 +9,15 @@ import java.awt.geom.Rectangle2D;
 public class DrawningCanvas extends JComponent {
   private int width;
   private int height;
-  private Cloud c1;
-  private Cloud c2;
-  private Cloud c3;
+  private int cellSize;
+//  private Cloud c1;
+//  private Cloud c2;
+//  private Cloud c3;
 
-  public DrawningCanvas(int width, int height) {
+  public DrawningCanvas(int width, int height, int cellSize) {
     this.width = width;
     this.height = height;
+    this.cellSize = cellSize;
 //    c1 = new Cloud(10, 50, 75, Color.LIGHT_GRAY);
 //    c2 = new Cloud(200, 75, 90, Color.BLUE);
 //    c3 = new Cloud(420, 60, 85, Color.DARK_GRAY);
@@ -34,18 +36,30 @@ public class DrawningCanvas extends JComponent {
 
     AffineTransform reset = g2d.getTransform();
 
-    Rectangle2D.Double r = new Rectangle2D.Double(150,200,100,100);
+    Path2D.Double path = new Path2D.Double();
 
-    g2d.setColor(Color.GREEN);
-    g2d.rotate(Math.toRadians(15),150,200);
-    g2d.fill(r);
+    for(int x = 0; x <= width; x += cellSize) {
+      path.moveTo(x,0);
+      path.lineTo(x,height);
+      g2d.draw(path);
+    }
 
-    g2d.setTransform(reset);
+    for(int y = 0; y <=height; y += cellSize) {
+      path.moveTo(0,y);
+      path.lineTo(width, y);
+      g2d.draw(path);
+    }
 
-    g2d.setColor(Color.BLUE);
-    g2d.rotate(Math.toRadians(20),150,200);
-    g2d.fill(r);
-
+//    g2d.setColor(Color.GREEN);
+//    g2d.rotate(Math.toRadians(15),150,200);
+//    g2d.fill(r);
+//
+//    g2d.setTransform(reset);
+//
+//    g2d.setColor(Color.BLUE);
+//    g2d.rotate(Math.toRadians(20),150,200);
+//    g2d.fill(r);
+//
 
 //    Rectangle2D.Double r1 = new Rectangle2D.Double(0,0,100,100);
 //    Rectangle2D.Double r2 = new Rectangle2D.Double(100,150,100,100);
@@ -65,11 +79,6 @@ public class DrawningCanvas extends JComponent {
 //    g2d.setTransform(reset);
 //    g2d.fill(r1);
 //
-
-
-
-
-
 //    Path2D.Double p = new   Path2D.Double();
 //    p.moveTo(100, 300);
 //    p.lineTo(150, 200);
