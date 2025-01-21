@@ -38,6 +38,23 @@ public class DrawningCanvas extends JComponent {
     p.closePath();
     g2d.draw(p);
 
+    Path2D.Double curve = new Path2D.Double();
+    curve.moveTo(250,400);
+    curve.curveTo(100,200,500,300, 600,400);
+    g2d.draw(curve);
+
+
+    Path2D.Double heart = new Path2D.Double();
+    heart.moveTo(328,256);
+    heart.curveTo(329,204,397,199,401,252);
+    heart.curveTo(413,201,468,198,466,250);
+    heart.curveTo(465,304,415,345,402,350);
+    heart.curveTo(388,346,328,308,328,256);
+    g2d.setColor(Color.RED);
+    g2d.fill(heart);
+    g2d.setColor(Color.BLACK);
+    g2d.draw(heart);
+
     c1.drawCloud(g2d);
     c2.drawCloud(g2d);
     c3.drawCloud(g2d);
