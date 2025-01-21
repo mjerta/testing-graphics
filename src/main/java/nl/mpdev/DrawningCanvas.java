@@ -2,14 +2,19 @@ package nl.mpdev;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 
-public class DrawningCanvas extends JComponent {
+public class DrawningCanvas extends JPanel implements ActionListener {
   private int width;
   private int height;
   private int cellSize;
+  private int x = 0;
+  private int y = 0;
+  private Timer timer;
 //  private Cloud c1;
 //  private Cloud c2;
 //  private Cloud c3;
@@ -18,6 +23,8 @@ public class DrawningCanvas extends JComponent {
     this.width = width;
     this.height = height;
     this.cellSize = cellSize;
+    timer = new Timer(200,this);
+    timer.start();
 //    c1 = new Cloud(10, 50, 75, Color.LIGHT_GRAY);
 //    c2 = new Cloud(200, 75, 90, Color.BLUE);
 //    c3 = new Cloud(420, 60, 85, Color.DARK_GRAY);
@@ -25,7 +32,8 @@ public class DrawningCanvas extends JComponent {
 
   @Override
   protected void paintComponent(Graphics g) {
-    // casten from Graphics to Graphics2D
+    super.paintComponent(g);
+    // cast from Graphics to Graphics2D
     Graphics2D g2d = (Graphics2D) g;
 
     RenderingHints rh = new RenderingHints(
@@ -34,21 +42,22 @@ public class DrawningCanvas extends JComponent {
     );
     g2d.setRenderingHints(rh);
 
-    AffineTransform reset = g2d.getTransform();
-
+    // create grid
     Path2D.Double path = new Path2D.Double();
-
     for(int x = 0; x <= width; x += cellSize) {
       path.moveTo(x,0);
       path.lineTo(x,height);
       g2d.draw(path);
     }
-
     for(int y = 0; y <=height; y += cellSize) {
       path.moveTo(0,y);
       path.lineTo(width, y);
       g2d.draw(path);
     }
+    AffineTransform reset = g2d.getTransform();
+
+    Rectangle2D.Double r = new Rectangle2D.Double(this.x,this.y,20,20);
+    g2d.fill(r);
 
 //    g2d.setColor(Color.GREEN);
 //    g2d.rotate(Math.toRadians(15),150,200);
@@ -123,5 +132,11 @@ public class DrawningCanvas extends JComponent {
 //    g2d.setColor(Color.RED);
 //    g2d.fill(e);
 
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    x += 20;
+    repaint();
   }
 }
