@@ -2,6 +2,7 @@ package nl.mpdev;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Path2D;
 
 public class DrawningCanvas extends JComponent {
   private int width;
@@ -13,9 +14,9 @@ public class DrawningCanvas extends JComponent {
   public DrawningCanvas(int width, int height) {
     this.width = width;
     this.height = height;
-    c1 = new Cloud(10,50,75,Color.LIGHT_GRAY);
-    c2 = new Cloud(200,75,90,Color.BLUE);
-    c3 = new Cloud(420,60,85,Color.DARK_GRAY);
+    c1 = new Cloud(10, 50, 75, Color.LIGHT_GRAY);
+    c2 = new Cloud(200, 75, 90, Color.BLUE);
+    c3 = new Cloud(420, 60, 85, Color.DARK_GRAY);
 
   }
 
@@ -29,6 +30,13 @@ public class DrawningCanvas extends JComponent {
       RenderingHints.VALUE_ANTIALIAS_ON
     );
     g2d.setRenderingHints(rh);
+
+    Path2D.Double p = new   Path2D.Double();
+    p.moveTo(100, 300);
+    p.lineTo(150, 200);
+    p.lineTo(200, 300);
+    p.closePath();
+    g2d.draw(p);
 
     c1.drawCloud(g2d);
     c2.drawCloud(g2d);
@@ -45,8 +53,6 @@ public class DrawningCanvas extends JComponent {
 //    Ellipse2D.Double e = new Ellipse2D.Double(200, 75, 100, 100);
 //    g2d.setColor(Color.RED);
 //    g2d.fill(e);
-
-
 
   }
 }
