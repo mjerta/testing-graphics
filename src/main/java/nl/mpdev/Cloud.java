@@ -23,7 +23,7 @@ public class Cloud {
     Ellipse2D.Double e2 = new Ellipse2D.Double(x+size*.35, y-size*.2, size*1.75, size*1.4);
     Ellipse2D.Double e3 = new Ellipse2D.Double(x+size*1.35,y+size*.15,size*.9,size*.9);
     Ellipse2D.Double e4 = new Ellipse2D.Double(x+size*1.8,y+size*.05,size*.3,size*.3);
-    g2d.setColor(Color.BLUE);
+    g2d.setColor(color);
     g2d.fill(e1);
     g2d.fill(e2);
     g2d.fill(e3);
