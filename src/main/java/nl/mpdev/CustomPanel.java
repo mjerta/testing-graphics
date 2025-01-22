@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
+import java.util.Random;
 
 public class CustomPanel extends JPanel implements ActionListener {
   private final int width;
@@ -14,13 +15,17 @@ public class CustomPanel extends JPanel implements ActionListener {
   private int x = 0;
   private int y = 0;
   private int velocityX;
+  private Color rectColor;
   private Timer timer;
+  private Random random;
 
   public CustomPanel(int width, int height, int cellSize) {
     this.width = width;
     this.height = height;
     this.cellSize = cellSize;
     this.velocityX = cellSize;
+    this.rectColor = Color.RED; // Initial color
+    this.random = new Random();
     timer = new Timer(100, this);
     timer.start();
   }
@@ -49,6 +54,7 @@ public class CustomPanel extends JPanel implements ActionListener {
       g2d.draw(path);
     }
     Rectangle2D.Double r = new Rectangle2D.Double(this.x, this.y, 20, 20);
+    g2d.setColor(rectColor);
     g2d.fill(r);
   }
 
@@ -57,6 +63,7 @@ public class CustomPanel extends JPanel implements ActionListener {
     if (x == width - cellSize || (x == 0 && velocityX < 0)) {
       velocityX = velocityX * -1;
     }
+    rectColor = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
     x = x + velocityX;
     repaint();
   }
