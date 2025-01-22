@@ -7,32 +7,22 @@ import java.awt.event.ActionListener;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 
-public class CustomPanel extends JPanel {
+public class CustomPanel extends JPanel implements ActionListener {
   private final int width;
   private final int height;
   private final int cellSize;
   private int x = 0;
   private int y = 0;
+  private int velocityX;
   private Timer timer;
 
   public CustomPanel(int width, int height, int cellSize) {
     this.width = width;
     this.height = height;
     this.cellSize = cellSize;
-//    timer = new Timer(200,this);
-//    timer.start();
-
-    new Thread(() -> {
-      for(int i = 0;i < 20; i++) {
-        x += 20;
-        repaint();
-        try {
-          Thread.sleep(100);
-        } catch (InterruptedException ex) {
-          ex.printStackTrace();
-        }
-      }
-    }).start();
+    this.velocityX = cellSize;
+    timer = new Timer(100, this);
+    timer.start();
   }
 
   @Override
@@ -48,23 +38,26 @@ public class CustomPanel extends JPanel {
 
     // create grid
     Path2D.Double path = new Path2D.Double();
-    for(int x = 0; x <= width; x += cellSize) {
-      path.moveTo(x,0);
-      path.lineTo(x,height);
+    for (int x = 0; x <= width; x += cellSize) {
+      path.moveTo(x, 0);
+      path.lineTo(x, height);
       g2d.draw(path);
     }
-    for(int y = 0; y <=height; y += cellSize) {
-      path.moveTo(0,y);
+    for (int y = 0; y <= height; y += cellSize) {
+      path.moveTo(0, y);
       path.lineTo(width, y);
       g2d.draw(path);
     }
-    Rectangle2D.Double r = new Rectangle2D.Double(this.x,this.y,20,20);
+    Rectangle2D.Double r = new Rectangle2D.Double(this.x, this.y, 20, 20);
     g2d.fill(r);
   }
 
-//  @Override
-//  public void actionPerformed(ActionEvent e) {
-//    x += 20;
-//    repaint();
-//  }
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    if (x == width - cellSize || (x == 0 && velocityX < 0)) {
+      velocityX = velocityX * -1;
+    }
+    x = x + velocityX;
+    repaint();
+  }
 }
