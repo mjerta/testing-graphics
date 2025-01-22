@@ -4,5 +4,10 @@ public enum Direction {
   UP,
   DOWN,
   LEFT,
-  RIGHT
+  RIGHT;
+
+
+  public Direction next() {
+    return values()[(ordinal() + 1) % values().length];
+  }
 }

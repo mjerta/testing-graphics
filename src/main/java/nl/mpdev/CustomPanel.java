@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
+import java.time.Year;
 import java.util.Random;
 
 public class CustomPanel extends JPanel implements ActionListener {
@@ -27,7 +28,7 @@ public class CustomPanel extends JPanel implements ActionListener {
     this.cellSize = cellSize;
     this.xVelocity = cellSize;
     this.yVelocity = cellSize;
-    isVertical = false; // Initial value
+    this.direction = Direction.RIGHT;
     this.rectColor = Color.RED; // Initial color
     this.random = new Random();
     timer = new Timer(100, this);
@@ -66,13 +67,43 @@ public class CustomPanel extends JPanel implements ActionListener {
   public void actionPerformed(ActionEvent e) {
 //    if (x == width - cellSize || (x == 0 && velocityX < 0)) {
 //      velocityX = velocityX * -1;
+
 //    }
-
-
-
+    switch (direction) {
+      case RIGHT:
+        if (x == width - cellSize) {
+          direction = Direction.DOWN;
+          break;
+        }
+        x = x + xVelocity;
+        break;
+      case DOWN:
+        if (y == height - cellSize) {
+          direction = Direction.LEFT;
+          break;
+        }
+        y = y + yVelocity;
+        break;
+      case LEFT:
+        if (x == 0) {
+          direction = Direction.UP;
+          break;
+        }
+        x = x - xVelocity;
+        break;
+      case UP:
+        if (y == 0) {
+          direction = Direction.RIGHT;
+          break;
+        }
+        y = y - yVelocity;
+        break;
+    }
     rectColor = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
-
-    x = x + xVelocity;
     repaint();
+  }
+
+  private boolean atTheBorder() {
+    return x >= width - cellSize || (x == cellSize) || y == cellSize || y >= height - cellSize;
   }
 }
