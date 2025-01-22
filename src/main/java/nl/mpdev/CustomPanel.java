@@ -12,9 +12,11 @@ public class CustomPanel extends JPanel implements ActionListener {
   private final int width;
   private final int height;
   private final int cellSize;
+  private final int xVelocity;
+  private final int yVelocity;
   private int x = 0;
   private int y = 0;
-  private int velocityX;
+  private Direction direction;
   private Color rectColor;
   private Timer timer;
   private Random random;
@@ -23,7 +25,9 @@ public class CustomPanel extends JPanel implements ActionListener {
     this.width = width;
     this.height = height;
     this.cellSize = cellSize;
-    this.velocityX = cellSize;
+    this.xVelocity = cellSize;
+    this.yVelocity = cellSize;
+    isVertical = false; // Initial value
     this.rectColor = Color.RED; // Initial color
     this.random = new Random();
     timer = new Timer(100, this);
@@ -60,11 +64,15 @@ public class CustomPanel extends JPanel implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    if (x == width - cellSize || (x == 0 && velocityX < 0)) {
-      velocityX = velocityX * -1;
-    }
+//    if (x == width - cellSize || (x == 0 && velocityX < 0)) {
+//      velocityX = velocityX * -1;
+//    }
+
+
+
     rectColor = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
-    x = x + velocityX;
+
+    x = x + xVelocity;
     repaint();
   }
 }
