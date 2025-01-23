@@ -50,6 +50,19 @@ public class CustomFrame extends JFrame implements KeyListener {
   @Override
   public void keyPressed(KeyEvent e) {
 
+    switch (e.getKeyCode()){
+      case 37:
+        label.setLocation(label.getX() -velocity, label.getY());
+        break;
+      case 38:
+        label.setLocation(label.getX(), label.getY() - velocity);
+        break;
+      case 39:
+        label.setLocation(label.getX() + velocity, label.getY());
+        break;
+      case 40:
+        label.setLocation(label.getX(),label.getY() + velocity);
+    }
   }
 
   @Override
