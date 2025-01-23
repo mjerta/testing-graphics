@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,13 +14,15 @@ public class CustomFrameTest {
   private CustomFrame customFrame;
   private JLabel label;
   private final int velocity = 10;
-
+  private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+  private final PrintStream originalOut = System.out;
 
   @BeforeEach
   public void setUp() {
     CustomPanel customPanel = new CustomPanel(500, 500, 20);
     customFrame = new CustomFrame("Test Frame", customPanel);
     label = (JLabel) customFrame.getContentPane().getComponent(0);
+    System.setOut(new PrintStream(outContent));
   }
 
   @Test
@@ -71,5 +75,81 @@ public class CustomFrameTest {
 
     // Assert
     assertEquals(initialY + velocity, label.getY());
+  }
+
+  @Test
+  public void testKeyPressed_A() {
+    // Arrange
+    int initialX = label.getX();
+    KeyEvent aKeyEvent = new KeyEvent(customFrame, KeyEvent.KEY_PRESSED, System.currentTimeMillis(),0, KeyEvent.VK_UNDEFINED, 'a');
+
+    // Act
+    customFrame.keyTyped(aKeyEvent);
+
+    // Assert
+    assertEquals(initialX - velocity, label.getX());
+
+  }
+  @Test
+  public void testKeyTyped_W() {
+    // Arrange
+    int initialY = label.getY();
+    KeyEvent wKeyEvent = new KeyEvent(customFrame, KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, KeyEvent.VK_UNDEFINED, 'w');
+
+    // Act
+    customFrame.keyTyped(wKeyEvent);
+
+    // Assert
+    assertEquals(initialY - velocity, label.getY());
+  }
+
+  @Test
+  public void testKeyTyped_S() {
+    // Arrange
+    int initialY = label.getY();
+    KeyEvent sKeyEvent = new KeyEvent(customFrame, KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, KeyEvent.VK_UNDEFINED, 's');
+
+    // Act
+    customFrame.keyTyped(sKeyEvent);
+
+    // Assert
+    assertEquals(initialY + velocity, label.getY());
+  }
+
+  @Test
+  public void testKeyTyped_D() {
+    // Arrange
+    int initialX = label.getX();
+    KeyEvent dKeyEvent = new KeyEvent(customFrame, KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, KeyEvent.VK_UNDEFINED, 'd');
+
+    // Act
+    customFrame.keyTyped(dKeyEvent);
+
+    // Assert
+    assertEquals(initialX + velocity, label.getX());
+  }
+
+  @Test
+  public void testKeyPressed_DefaultCase() {
+    // Arrange
+    KeyEvent unhandledKeyEvent = new KeyEvent(customFrame, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_F1, KeyEvent.CHAR_UNDEFINED);
+
+    // Act
+    customFrame.keyPressed(unhandledKeyEvent);
+
+    // Assert
+    assertEquals("Unhandled key code: 112" + System.lineSeparator(), outContent.toString());
+  }
+
+  @Test
+  public void testKeyTypedPressed_DefaultCase() {
+    // Arrange
+    KeyEvent unhandledKeyEvent = new KeyEvent(customFrame, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_UNDEFINED, 'k');
+
+    // Act
+    customFrame.keyTyped(unhandledKeyEvent);
+
+    // Assert
+    assertEquals("Unhandled key char: k" + System.lineSeparator(), outContent.toString());
   }
 }

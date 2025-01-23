@@ -44,6 +44,9 @@ public class CustomFrame extends JFrame implements KeyListener {
       case 'd':
         label.setLocation(label.getX() + velocity, label.getY());
         break;
+      default:
+        System.out.println("Unhandled key char: " + e.getKeyChar());
+        break;
     }
   }
 
@@ -62,6 +65,9 @@ public class CustomFrame extends JFrame implements KeyListener {
         break;
       case 40:
         label.setLocation(label.getX(),label.getY() + velocity);
+      default:
+        System.out.println("Unhandled key code: " + e.getKeyCode());
+        break;
     }
   }
 
