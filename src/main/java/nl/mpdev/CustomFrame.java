@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 public class CustomFrame extends JFrame implements KeyListener {
 
   private final JLabel label;
+  private int velocity = 10;
 
   public CustomFrame(String title, CustomPanel customPanel) {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,8 +33,17 @@ public class CustomFrame extends JFrame implements KeyListener {
 
     switch (e.getKeyChar()) {
       case 'a':
-        label.setLocation(label.getX() - 1, label.getY());
-
+        label.setLocation(label.getX() - velocity, label.getY());
+        break;
+      case 'w':
+        label.setLocation(label.getX(), label.getY() - velocity);
+        break;
+      case 's':
+        label.setLocation(label.getX(), label.getY() + velocity);
+        break;
+      case 'd':
+        label.setLocation(label.getX() + velocity, label.getY());
+        break;
     }
   }
 
