@@ -11,7 +11,7 @@ import java.awt.geom.Rectangle2D;
 import java.time.Year;
 import java.util.Random;
 
-public class CustomPanel extends JPanel implements ActionListener, KeyListener {
+public class CustomPanel extends JPanel implements ActionListener {
   private final int width;
   private final int height;
   private final int cellSize;
@@ -33,7 +33,6 @@ public class CustomPanel extends JPanel implements ActionListener, KeyListener {
     this.direction = Direction.RIGHT;
     this.rectColor = Color.RED; // Initial color
     this.random = new Random();
-    this.addKeyListener(this);
     this.setFocusable(true);
     this.requestFocusInWindow();
     Timer timer = new Timer(100, this);
@@ -102,21 +101,5 @@ public class CustomPanel extends JPanel implements ActionListener, KeyListener {
     }
     rectColor = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
     repaint();
-  }
-
-  @Override
-  public void keyTyped(KeyEvent e) {
-
-
-  }
-
-  @Override
-  public void keyPressed(KeyEvent e) {
-
-  }
-
-  @Override
-  public void keyReleased(KeyEvent e) {
-    System.out.println("You released key character " + e.getKeyChar());
   }
 }
