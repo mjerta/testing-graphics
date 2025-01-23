@@ -4,12 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.time.Year;
 import java.util.Random;
 
-public class CustomPanel extends JPanel implements ActionListener {
+public class CustomPanel extends JPanel implements ActionListener, KeyListener {
   private final int width;
   private final int height;
   private final int cellSize;
@@ -19,19 +21,22 @@ public class CustomPanel extends JPanel implements ActionListener {
   private int y = 0;
   private Direction direction;
   private Color rectColor;
-  private Timer timer;
-  private Random random;
+  private final Random random;
 
   public CustomPanel(int width, int height, int cellSize) {
     this.width = width;
     this.height = height;
+    this.setPreferredSize(new Dimension(width,height));
     this.cellSize = cellSize;
     this.xVelocity = cellSize;
     this.yVelocity = cellSize;
     this.direction = Direction.RIGHT;
     this.rectColor = Color.RED; // Initial color
     this.random = new Random();
-    timer = new Timer(100, this);
+    this.addKeyListener(this);
+    this.setFocusable(true);
+    this.requestFocusInWindow();
+    Timer timer = new Timer(100, this);
     timer.start();
   }
 
@@ -65,10 +70,6 @@ public class CustomPanel extends JPanel implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-//    if (x == width - cellSize || (x == 0 && velocityX < 0)) {
-//      velocityX = velocityX * -1;
-
-//    }
     switch (direction) {
       case RIGHT:
         if (x == width - cellSize) {
@@ -103,7 +104,19 @@ public class CustomPanel extends JPanel implements ActionListener {
     repaint();
   }
 
-  private boolean atTheBorder() {
-    return x >= width - cellSize || (x == cellSize) || y == cellSize || y >= height - cellSize;
+  @Override
+  public void keyTyped(KeyEvent e) {
+
+
+  }
+
+  @Override
+  public void keyPressed(KeyEvent e) {
+
+  }
+
+  @Override
+  public void keyReleased(KeyEvent e) {
+    System.out.println("You released key character " + e.getKeyChar());
   }
 }
