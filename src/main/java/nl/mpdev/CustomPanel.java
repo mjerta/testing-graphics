@@ -24,6 +24,7 @@ public class CustomPanel extends JPanel implements ActionListener, KeyListener {
   private final Random random;
 
   public CustomPanel(int width, int height, int cellSize) {
+    this.setBackground(Color.BLACK);
     this.width = width;
     this.height = height;
     this.setPreferredSize(new Dimension(width,height));
@@ -110,9 +111,20 @@ public class CustomPanel extends JPanel implements ActionListener, KeyListener {
     switch (e.getKeyChar()) {
       case  'a':
         direction = Direction.LEFT;
-        System.out.println(e.getKeyChar());
+        break;
+      case 'd':
+        direction = Direction.RIGHT;
+        break;
+      case 's':
+        direction = Direction.DOWN;
+        break;
+      case 'w':
+        direction = Direction.UP;
+        break;
+      default:
         break;
     }
+
 
   }
 
